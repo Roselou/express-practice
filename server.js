@@ -24,6 +24,28 @@ var cats = [
 	{id: 3, name: "cuddles", age: 12},
 ];
 
+var students = [
+	{
+		id: 1,
+		first_name: "Rose",
+		last_name: "Lou"
+	},
+	{
+		id: 2,
+		first_name: "David",
+		last_name: "Thayer"
+	},
+	{
+		id: 3,
+		first_name: "Mark",
+		last_name: "D'Souza"
+	}
+];
+
+//api/students?id=2 
+
+
+
 // app.get('/api/dogs', function (request, response){
 // 	response.json(dogs);
 // });
@@ -91,7 +113,7 @@ app.get('/api/dogNamesWith/:letter', function(req, res){
 	response.json(dogsWithThatLetter);
 });
 
-app.get('api/catAges/:age', function(req, res){
+app.get('/api/catAges/:age', function(req, res){
 	var catAgeFromUrl = req.params.age;
 	var catsWithThatAge = cats.filter(function(catObj){
 		return catObj.age == catAgeFromUrl;
@@ -99,12 +121,28 @@ app.get('api/catAges/:age', function(req, res){
 	res.json(catsWithThatAge);
 });
 //do for dog 
-app.get('api/dogAges/:age', function(req, res){
+app.get('/api/dogAges/:age', function(req, res){
 	var dogAgeFromUrl = req.params.age;
 	var dogsWithThatAge = dogs.filter(function(dogObj){
 		return dogObj.age == dogAgeFromUrl;
 	});
 	res.json(dogsWithThatAge);
+});
+
+app.get('/api/students', function(req, res){
+	 var studentIdFromUrl = req.query.id
+	 console.log(studentIdFromUrl)
+	if (studentIdFromUrl === undefined){
+		res.json(students)
+	} else {
+		var studentsWithThatId = students.filter(function(studentObj){
+			return studentObj.id == studentIdFromUrl;
+		}); 
+		res.json(studentsWithThatId);
+	}; 
+	
+});
+
 
 //Keep at bottom
 app.listen(3000, function(){
